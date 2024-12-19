@@ -46,6 +46,18 @@ async def root(credentials : Annotated[HTTPBasicCredentials,Depends(security)]):
     else:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
 
+
+@app.get("/customers")
+async def create_customer(credentials : Annotated[HTTPBasicCredentials,Depends(security)]):
+    print(credentials)
+    if credentials.username == "johan" and  credentials.password == "1234":
+        return {"message" : f"Hola {credentials.username}!"}
+    else:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Unauthorized")
+
+
+
+
 country_timezones = {
     "US": "America/New_York",
     "UK": "Europe/London",
